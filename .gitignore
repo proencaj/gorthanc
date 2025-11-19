@@ -1,0 +1,8 @@
+bin/
+orthanc_db
+orthanc2_db
+docker-compose.yml
+.vscode
+tmp/
+set_git_user.sh
+.DS_Store
