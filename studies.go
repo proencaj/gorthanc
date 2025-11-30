@@ -149,3 +149,47 @@ func (c *Client) GetStudyStatistics(studyID string) (*types.Statistics, error) {
 
 	return &stats, nil
 }
+
+func (c *Client) GetStudySeries(studyID string) ([]string, error) {
+	var seriesIDs []string
+	path := fmt.Sprintf("studies/%s/series?expand=false", studyID)
+
+	if err := c.get(path, &seriesIDs); err != nil {
+		return nil, err
+	}
+
+	return seriesIDs, nil
+}
+
+func (c *Client) GetStudySeriesExpanded(studyID string) ([]types.Series, error) {
+	var series []types.Series
+	path := fmt.Sprintf("studies/%s/series?expand=true", studyID)
+
+	if err := c.get(path, &series); err != nil {
+		return nil, err
+	}
+
+	return series, nil
+}
+
+func (c *Client) GetStudyInstances(studyID string) ([]string, error) {
+	var instanceIDs []string
+	path := fmt.Sprintf("studies/%s/instances?expand=false", studyID)
+
+	if err := c.get(path, &instanceIDs); err != nil {
+		return nil, err
+	}
+
+	return instanceIDs, nil
+}
+
+func (c *Client) GetStudyInstancesExpanded(studyID string) ([]types.Instance, error) {
+	var instances []types.Instance
+	path := fmt.Sprintf("studies/%s/instances?expand=true", studyID)
+
+	if err := c.get(path, &instances); err != nil {
+		return nil, err
+	}
+
+	return instances, nil
+}

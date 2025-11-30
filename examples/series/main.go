@@ -143,16 +143,29 @@ func main() {
 	// Example: GetSeriesInstances
 
 	if len(expandedSeries) > 0 {
-		seriesInstances, err := client.GetSeriesInstances(expandedSeries[0].ID)
+		instanceIDs, err := client.GetSeriesInstances(expandedSeries[0].ID)
 		if err != nil {
-			log.Fatalf("Failed get series stats: %v", err)
+			log.Fatalf("Failed to get series instances: %v", err)
 		}
+		fmt.Printf("Found %d instances in series %s\n", len(instanceIDs), expandedSeries[0].ID)
+		fmt.Println(instanceIDs)
+	}
 
-		jsonData, err := json.MarshalIndent(seriesInstances, "", "  ")
-		if err != nil { 
-			log.Fatalf("Failed to marshal series: %v ", err)
+	// Example: GetSeriesInstancesExpanded
+
+	if len(expandedSeries) > 0 {
+		instances, err := client.GetSeriesInstancesExpanded(expandedSeries[0].ID)
+		if err != nil {
+			log.Fatalf("Failed to get expanded series instances: %v", err)
 		}
-		
-		fmt.Println(string(jsonData))	
-	}	
+		fmt.Printf("Found %d instances with full details in series %s\n", len(instances), expandedSeries[0].ID)
+
+		for _, i := range instances {
+			jsonData, err := json.MarshalIndent(i, "", "  ")
+			if err != nil {
+				log.Fatalf("Failed to marshal instance: %v", err)
+			}
+			fmt.Println(string(jsonData))
+		}
+	}
 }
