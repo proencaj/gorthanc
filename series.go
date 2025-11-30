@@ -99,10 +99,20 @@ func (c *Client) GetSeriesStatistics(seriesID string) (*types.Statistics, error)
 }
 
 
-// Only accepts expand false for now
 func (c *Client) GetSeriesInstances(seriesID string) ([]string, error) {
-	var instances []string
+	var instanceIDs []string
 	path := fmt.Sprintf("series/%s/instances?expand=false", seriesID)
+
+	if err := c.get(path, &instanceIDs); err != nil {
+		return nil, err
+	}
+
+	return instanceIDs, nil
+}
+
+func (c *Client) GetSeriesInstancesExpanded(seriesID string) ([]types.Instance, error) {
+	var instances []types.Instance
+	path := fmt.Sprintf("series/%s/instances?expand=true", seriesID)
 
 	if err := c.get(path, &instances); err != nil {
 		return nil, err

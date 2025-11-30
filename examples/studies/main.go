@@ -115,4 +115,62 @@ func main() {
 		}
 		fmt.Printf("Study archive downloaded to: study_%s.zip\n", expandedStudies[0].ID)
 	}
+
+	// Example: GetStudySeries
+
+	if len(expandedStudies) > 0 {
+		seriesIDs, err := client.GetStudySeries(expandedStudies[0].ID)
+		if err != nil {
+			log.Fatalf("Failed to get study series: %v", err)
+		}
+		fmt.Printf("Found %d series in study %s\n", len(seriesIDs), expandedStudies[0].ID)
+		fmt.Println(seriesIDs)
+	}
+
+	// Example: GetStudySeriesExpanded
+
+	if len(expandedStudies) > 0 {
+		series, err := client.GetStudySeriesExpanded(expandedStudies[0].ID)
+		if err != nil {
+			log.Fatalf("Failed to get expanded study series: %v", err)
+		}
+		fmt.Printf("Found %d series with full details in study %s\n", len(series), expandedStudies[0].ID)
+
+		for _, s := range series {
+			jsonData, err := json.MarshalIndent(s, "", "  ")
+			if err != nil {
+				log.Fatalf("Failed to marshal series: %v", err)
+			}
+			fmt.Println(string(jsonData))
+		}
+	}
+
+	// Example: GetStudyInstances
+
+	if len(expandedStudies) > 0 {
+		instanceIDs, err := client.GetStudyInstances(expandedStudies[0].ID)
+		if err != nil {
+			log.Fatalf("Failed to get study instances: %v", err)
+		}
+		fmt.Printf("Found %d instances in study %s\n", len(instanceIDs), expandedStudies[0].ID)
+		fmt.Println(instanceIDs)
+	}
+
+	// Example: GetStudyInstancesExpanded
+
+	if len(expandedStudies) > 0 {
+		instances, err := client.GetStudyInstancesExpanded(expandedStudies[0].ID)
+		if err != nil {
+			log.Fatalf("Failed to get expanded study instances: %v", err)
+		}
+		fmt.Printf("Found %d instances with full details in study %s\n", len(instances), expandedStudies[0].ID)
+
+		for _, i := range instances {
+			jsonData, err := json.MarshalIndent(i, "", "  ")
+			if err != nil {
+				log.Fatalf("Failed to marshal instance: %v", err)
+			}
+			fmt.Println(string(jsonData))
+		}
+	}
 }
