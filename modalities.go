@@ -2,7 +2,6 @@ package gorthanc
 
 import (
 	"fmt"
-	"log/slog"
 
 	"github.com/proencaj/gorthanc/types"
 )
@@ -106,9 +105,6 @@ func (c *Client) FindInModality(modalityName string, request *types.ModalityFind
 		return nil, err
 	}
 
-	fmt.Println("----------------")
-	fmt.Println(queryResponse)
-
 	// Extract the query ID from the response
 	queryID, ok := queryResponse["ID"].(string)
 	if !ok {
@@ -129,8 +125,6 @@ func (c *Client) FindInModality(modalityName string, request *types.ModalityFind
 
 func (c *Client) MoveFromModality(modalityName string, request *types.ModalityMoveRequest) (*types.ModalityMoveResult, error) {
 	path := fmt.Sprintf("modalities/%s/move", modalityName)
-
-	slog.Info("Path", "path", path)
 
 	var result types.ModalityMoveResult
 	if err := c.post(path, request, &result); err != nil {
