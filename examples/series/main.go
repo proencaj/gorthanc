@@ -88,9 +88,9 @@ func main() {
 
 	if len(expandedSeries) > 0 {
 		anonymizeRequest := &types.SeriesAnonymizeRequest{
-			Force: false,
-			Permissive: false,
-			KeepSource: true,
+			Force:      gorthanc.BoolPtr(false),
+			Permissive: gorthanc.BoolPtr(false),
+			KeepSource: gorthanc.BoolPtr(true),
 		}
 		anonymizedSeries, err := client.AnonymizeSeries(expandedSeries[0].ID, anonymizeRequest)
 		if err != nil {

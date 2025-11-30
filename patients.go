@@ -43,7 +43,7 @@ func (c *Client) GetPatientDetails(patientID string) (*types.Patient, error) {
 func (c *Client) AnonymizePatient(studyID string, anonymizeRequest *types.PatientAnonymizeRequest) (*types.PatientAnonymizeResponse, error) {
 	var result types.PatientAnonymizeResponse
 	path := fmt.Sprintf("patients/%s/anonymize", studyID)
-	anonymizeRequest.Asynchronous = false	
+	anonymizeRequest.Asynchronous = BoolPtr(false)
 
 	if err := c.post(path, anonymizeRequest, &result); err != nil {
 		return nil, err

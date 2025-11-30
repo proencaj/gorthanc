@@ -45,8 +45,8 @@ type SystemInfo struct {
 	MaximumPatients int `json:"MaximumPatients,omitempty"`
 
 	// Whether storage compression is enabled
-	StorageCompression bool `json:"StorageCompression,omitempty"`
+	StorageCompression *bool `json:"StorageCompression,omitempty"`
 
 	// Whether instance overwriting is enabled
-	OverwriteInstances bool `json:"OverwriteInstances,omitempty"`
+	OverwriteInstances *bool `json:"OverwriteInstances,omitempty"`
 }

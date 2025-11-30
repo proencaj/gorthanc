@@ -15,19 +15,19 @@ type Modality struct {
 	Manufacturer string `json:"Manufacturer,omitempty"`
 
 	// Whether to allow echo requests
-	AllowEcho bool `json:"AllowEcho,omitempty"`
+	AllowEcho *bool `json:"AllowEcho,omitempty"`
 
 	// Whether to allow C-FIND requests
-	AllowFind bool `json:"AllowFind,omitempty"`
+	AllowFind *bool `json:"AllowFind,omitempty"`
 
 	// Whether to allow C-GET requests
-	AllowGet bool `json:"AllowGet,omitempty"`
+	AllowGet *bool `json:"AllowGet,omitempty"`
 
 	// Whether to allow C-MOVE requests
-	AllowMove bool `json:"AllowMove,omitempty"`
+	AllowMove *bool `json:"AllowMove,omitempty"`
 
 	// Whether to allow C-STORE requests
-	AllowStore bool `json:"AllowStore,omitempty"`
+	AllowStore *bool `json:"AllowStore,omitempty"`
 
 	// Timeout for DICOM operations (in seconds)
 	Timeout int `json:"Timeout,omitempty"`
@@ -84,7 +84,7 @@ type ModalityStoreRequest struct {
 	Resources []string `json:"Resources,omitempty"`
 
 	// Whether to synchronously wait for the transfer
-	Synchronous bool `json:"Synchronous,omitempty"`
+	Synchronous *bool `json:"Synchronous,omitempty"`
 
 	// Local AET to use for the transfer
 	LocalAet string `json:"LocalAet,omitempty"`
@@ -136,7 +136,7 @@ type ModalityFindRequest struct {
 	Query map[string]string `json:"Query"`
 
 	// Whether to normalize the query
-	Normalize bool `json:"Normalize,omitempty"`
+	Normalize *bool `json:"Normalize,omitempty"`
 
 	// Timeout in seconds
 	Timeout int `json:"Timeout,omitempty"`
@@ -171,9 +171,9 @@ type ModalityMoveRequest struct {
 
 	Priority int `json:"Priority,omitempty"`
 
-	Permissive bool `json:"Permissive,omitempty"`
-	
-	Asynchronous bool `json:"Asynchronous,omitempty"`
+	Permissive *bool `json:"Permissive,omitempty"`
+
+	Asynchronous *bool `json:"Asynchronous,omitempty"`
 
 	// Timeout in seconds
 	Timeout int `json:"Timeout,omitempty"`
@@ -209,8 +209,8 @@ type ModalityGetRequest struct {
 	Timeout int `json:"Timeout,omitempty"`
 
 	// If true, ignore errors during the individual steps of the job.
-	Permissive bool `json:"Permissive,omitempty"`
-	
+	Permissive *bool `json:"Permissive,omitempty"`
+
 	// If true, run the job in asynchronous mode,
-	Asynchronous bool `json:"Asynchronous,omitempty"`
+	Asynchronous *bool `json:"Asynchronous,omitempty"`
 }

@@ -70,8 +70,7 @@ func (c *Client) DeleteSeries(seriesID string) error {
 func (c *Client) AnonymizeSeries(seriesID string, anonymizeRequest *types.SeriesAnonymizeRequest) (*types.SeriesAnonymizeResponse, error) {
 	var result types.SeriesAnonymizeResponse
 	path := fmt.Sprintf("series/%s/anonymize", seriesID)
-	anonymizeRequest.Asynchronous = false
-	
+	anonymizeRequest.Asynchronous = BoolPtr(false)
 
 	if err := c.post(path, anonymizeRequest, &result); err != nil {
 		return nil, err

@@ -100,28 +100,28 @@ type ModifyRequest struct {
 	Keep []string `json:"Keep,omitempty"`
 
 	// Whether to keep private tags
-	KeepPrivateTags bool `json:"KeepPrivateTags,omitempty"`
+	KeepPrivateTags *bool `json:"KeepPrivateTags,omitempty"`
 
 	// Force operation even if it would create an invalid DICOM file
-	Force bool `json:"Force,omitempty"`
+	Force *bool `json:"Force,omitempty"`
 }
 
 // AnonymizeRequest represents a request to anonymize a study
 type StudyAnonymizeRequest struct {
 	// If true, the REST API will return a Job ID and the job will be put in a queue
-	Asynchronous bool `json:"Asynchronous,omitempty"`
+	Asynchronous *bool `json:"Asynchronous,omitempty"`
 
 	// DicomVersion to use for anonymization
 	DicomVersion string `json:"DicomVersion,omitempty"`
 
 	// Force operation even if it would create an invalid DICOM file
-	Force bool `json:"Force,omitempty"`	
+	Force *bool `json:"Force,omitempty"`
 
 	// By default orthanc does not exclude the source study, use set this to falso to delete after the anonymization proccess
-	KeepSource bool `json:"KeepSource,omitempty"`	
+	KeepSource *bool `json:"KeepSource,omitempty"`
 
 	// If true, ignore errors during the individual steps of the job.
-	Permissive bool `json:"Permissive,omitempty"`
+	Permissive *bool `json:"Permissive,omitempty"`
 
 	// Defines the priority of the job (Only work on async mode, which isn't implemented)
 	Priority int `json:"Priority,omitempty"`
