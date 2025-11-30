@@ -81,9 +81,9 @@ func main() {
 
 	if len(expandedStudies) > 0 {
 		anonymizeRequest := &types.StudyAnonymizeRequest{
-			Force: false,
-			Permissive: false,
-			KeepSource: true,
+			Force:      gorthanc.BoolPtr(false),
+			Permissive: gorthanc.BoolPtr(false),
+			KeepSource: gorthanc.BoolPtr(true),
 		}
 		anonymizedStudy, err := client.AnonymizeStudy(expandedStudies[0].ID, anonymizeRequest)
 		if err != nil {

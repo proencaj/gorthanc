@@ -108,7 +108,7 @@ func (c *Client) DeleteStudy(studyID string) error {
 func (c *Client) AnonymizeStudy(studyID string, anonymizeRequest *types.StudyAnonymizeRequest) (*types.StudyAnonymizeResponse, error) {
 	var result types.StudyAnonymizeResponse
 	path := fmt.Sprintf("studies/%s/anonymize", studyID)
-	anonymizeRequest.Asynchronous = false	
+	anonymizeRequest.Asynchronous = BoolPtr(false)
 
 	if err := c.post(path, anonymizeRequest, &result); err != nil {
 		return nil, err

@@ -131,8 +131,8 @@ func main() {
 		defer output.Close()
 
 		anonymizeRequest := &types.InstancesAnonymizeRequest{
-			Force: false,
-			KeepSource: true,
+			Force:      gorthanc.BoolPtr(false),
+			KeepSource: gorthanc.BoolPtr(true),
 		}
 
 		resp, err := client.AnonymizeInstance(insId, anonymizeRequest)

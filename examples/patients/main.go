@@ -55,9 +55,9 @@ func main() {
 
 	if len(patients) > 0 {
 		anonymizeRequest := &types.PatientAnonymizeRequest{
-			Force: false,
-			Permissive: false,
-			KeepSource: true,
+			Force:      gorthanc.BoolPtr(false),
+			Permissive: gorthanc.BoolPtr(false),
+			KeepSource: gorthanc.BoolPtr(true),
 		}
 		anonymizedPatient, err := client.AnonymizePatient(patients[0], anonymizeRequest)
 		if err != nil {
