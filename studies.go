@@ -122,6 +122,19 @@ func (c *Client) getWithRawResponse(path string) (*http.Response, error) {
 	return c.doRequest(http.MethodGet, path, nil)
 }
 
+// putWithPlainText performs a PUT request with a plain text body
+func (c *Client) putWithPlainText(path string, body string) error {
+	bodyReader := strings.NewReader(body)
+
+	resp, err := c.doRequest(http.MethodPut, path, bodyReader)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	return nil
+}
+
 // postWithRawResponse performs a GET request and returns the raw response
 func (c *Client) postWithBodyAndRawResponse(path string, body interface{}) (*http.Response, error) {
 	var bodyReader io.Reader
