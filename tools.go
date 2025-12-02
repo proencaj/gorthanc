@@ -3,6 +3,8 @@ package gorthanc
 import (
 	"encoding/json"
 	"fmt"
+	"io"
+	"strings"
 
 	"github.com/proencaj/gorthanc/types"
 )
@@ -66,10 +68,18 @@ func (c *Client) Shutdown() error {
 // This endpoint implements the GET /tools/log-level request
 // Returns one of: "default", "verbose", or "trace"
 func (c *Client) GetLogLevel() (types.LogLevel, error) {
-	var level string
-	if err := c.get("tools/log-level", &level); err != nil {
+	resp, err := c.getWithRawResponse("tools/log-level")
+	if err != nil {
 		return "", err
 	}
+	defer resp.Body.Close()
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return "", fmt.Errorf("failed to read response body: %w", err)
+	}
+
+	level := strings.TrimSpace(string(body))
 	return types.LogLevel(level), nil
 }
 
@@ -78,5 +88,5 @@ func (c *Client) GetLogLevel() (types.LogLevel, error) {
 // Valid levels: LogLevelDefault, LogLevelVerbose, LogLevelTrace
 // Note: This resets all category-specific log levels
 func (c *Client) SetLogLevel(level types.LogLevel) error {
-	return c.put("tools/log-level", level, nil)
+	return c.putWithPlainText("tools/log-level", string(level))
 }
