@@ -44,6 +44,10 @@ func NewClient(baseURL string, opts ...ClientOption) (*Client, error) {
 }
 
 func (c *Client) doRequest(method, path string, body io.Reader) (*http.Response, error) {
+	return c.doRequestWithAccept(method, path, body, "application/json")
+}
+
+func (c *Client) doRequestWithAccept(method, path string, body io.Reader, accept string) (*http.Response, error) {
 	endpoint, err := c.baseURL.Parse(path)
 	if err != nil {
 		return nil, fmt.Errorf("failed to parse endpoint path: %w", err)
@@ -54,7 +58,7 @@ func (c *Client) doRequest(method, path string, body io.Reader) (*http.Response,
 		return nil, fmt.Errorf("failed to create request: %w", err)
 	}
 
-	req.Header.Set("Accept", "application/json")
+	req.Header.Set("Accept", accept)
 	if body != nil {
 		req.Header.Set("Content-Type", "application/json")
 	}
