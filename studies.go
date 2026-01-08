@@ -122,6 +122,11 @@ func (c *Client) getWithRawResponse(path string) (*http.Response, error) {
 	return c.doRequest(http.MethodGet, path, nil)
 }
 
+// getWithAcceptRawResponse performs a GET request with a custom Accept header and returns the raw response
+func (c *Client) getWithAcceptRawResponse(path string, accept string) (*http.Response, error) {
+	return c.doRequestWithAccept(http.MethodGet, path, nil, accept)
+}
+
 // putWithPlainText performs a PUT request with a plain text body
 func (c *Client) putWithPlainText(path string, body string) error {
 	bodyReader := strings.NewReader(body)
