@@ -50,3 +50,30 @@ type SystemInfo struct {
 	// Whether instance overwriting is enabled
 	OverwriteInstances *bool `json:"OverwriteInstances,omitempty"`
 }
+
+type SystemStatistics struct {
+	// Total number of DICOM instances
+	CountInstances int `json:"CountInstances"`
+
+	// Total number of unique patients
+	CountPatients int `json:"CountPatients"`
+
+	// Total number of series across all studies
+	CountSeries int `json:"CountSeries"`
+
+	// Total number of clinical studies
+	CountStudies int `json:"CountStudies"`
+
+	// Size on disk in bytes
+	TotalDiskSize string `json:"TotalDiskSize"`
+
+	// Size on disk converted to Megabytes
+	TotalDiskSizeMB int `json:"TotalDiskSizeMB"`
+
+	// Full size without compression in bytes
+	TotalUncompressedSize string `json:"TotalUncompressedSize"`
+
+	// Uncompressed size converted to Megabytes
+	TotalUncompressedSizeMB int `json:"TotalUncompressedSizeMB"`
+}
+

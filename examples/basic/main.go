@@ -66,4 +66,41 @@ func main() {
 	}
 
 	fmt.Println("\n✓ Successfully connected to Orthanc server!")
+
+	// Fetch system-wide statistics
+	fmt.Println("Fetching Orthanc system statistics...")
+	stats, err := client.GetSystemStatistics() // Note: In gorthanc, this is usually GetStatistics()
+	if err != nil {
+		if gorthanc.IsUnauthorized(err) {
+			log.Fatal("Authentication failed - check your credentials")
+		}
+		log.Fatalf("Failed to get statistics: %v", err)
+	}
+
+	// Display Statistics Information
+	fmt.Println("\n=== Orthanc System Statistics ===")
+	
+	// Entity Counts
+	fmt.Printf("Total Patients:        %d\n", stats.CountPatients)
+	fmt.Printf("Total Studies:         %d\n", stats.CountStudies)
+	fmt.Printf("Total Series:          %d\n", stats.CountSeries)
+	fmt.Printf("Total Instances:       %d\n", stats.CountInstances)
+	
+	fmt.Println("\n--- Storage Information ---")
+	
+	// Disk Usage
+	fmt.Printf("Disk Size (MB):        %d MB\n", stats.TotalDiskSizeMB)
+	fmt.Printf("Disk Size (Bytes):     %s\n", stats.TotalDiskSize)
+	
+	// Compression Info
+	fmt.Printf("Uncompressed (MB):     %d MB\n", stats.TotalUncompressedSizeMB)
+	fmt.Printf("Uncompressed (Bytes):  %s\n", stats.TotalUncompressedSize)
+
+	// Calculate Compression Ratio if applicable
+	if stats.TotalUncompressedSizeMB > 0 {
+		ratio := float64(stats.TotalDiskSizeMB) / float64(stats.TotalUncompressedSizeMB) * 100
+		fmt.Printf("Compression Ratio:     %.2f%%\n", ratio)
+	}
+
+	fmt.Println("\n✓ Statistics retrieved successfully!")
 }

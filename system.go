@@ -9,3 +9,11 @@ func (c *Client) GetSystem() (*types.SystemInfo, error) {
 	}
 	return &info, nil
 }
+
+func (c *Client) GetSystemStatistics() (*types.SystemStatistics, error) {
+	var statistics types.SystemStatistics
+	if err := c.get("statistics", &statistics); err != nil {
+		return nil, err
+	}
+	return &statistics, nil
+}
